@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор техплан</title>
+</head>
+<body>
+    <div id="calcBody">
+    <select id = "mainSelect">
+        <option>Выберите услугу</option>
+        <option>Техплан квартиры</option>
+        <option>Техплан нежилого здания, помещения</option>
+        <option>Техплан склада</option>
+        <option>Техплан машиноместа, гаража</option>
+        <option>Техплан ИЖС, дачи, хозпостройки</option>
+
+        <option>Техплан линейного сооружения или описания на ЗОУИТ</option>
+        <option>Техплан МКД</option>
+    </select>
+    <p id="service-name"></p>
+    <input id="square">
+    <br/>
+    <p id="area-name"></p>            
+    <input id="area-count">
+    <br/>
+    <p id="coefficent-name"></p>
+        <select id="area-type">
+            <option value="Да">Да</option>
+            <option value="Нет">Нет</option>
+        </select>
+    <br/>
+    <button id="calculate1">РАССЧИТАТЬ</button>
+    <button id="calculate2">РАССЧИТАТЬ</button>
+    <button id="calculate3">РАССЧИТАТЬ</button>
+    <button id="calculate4">РАССЧИТАТЬ</button>
+    <button id="calculate5">РАССЧИТАТЬ</button>
+    <button id="calculate6">РАССЧИТАТЬ</button>
+    <button id="calculate7">РАССЧИТАТЬ</button>
+
+    <p id="total-price"></p>
+    <p id="warning">*После изучения документов цена может незначительно измениться</p>
+    </div>
+
+</body>
+</html>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", docReady);
+function docReady()
+{
+    document.getElementById('mainSelect').addEventListener('change', showSelect);
+}
+
+document.getElementById('calculate1').style.display = 'none';
+document.getElementById('calculate2').style.display = 'none';
+document.getElementById('calculate3').style.display = 'none';
+document.getElementById('calculate4').style.display = 'none';
+document.getElementById('calculate5').style.display = 'none';
+document.getElementById('calculate6').style.display = 'none';
+document.getElementById('calculate7').style.display = 'none';
+function showSelect(e)
+{
+    switch(e.target.value)
+    {
+        //1
+        case 'Техплан квартиры': 
+        document.getElementById('calculate1').style.display = 'block';
+        document.getElementById('calculate2').style.display = 'none';
+        document.getElementById('calculate3').style.display = 'none';
+        document.getElementById('calculate4').style.display = 'none';
+        document.getElementById('calculate5').style.display = 'none';
+        document.getElementById('calculate6').style.display = 'none';
+        document.getElementById('calculate7').style.display = 'none';
+            document.getElementById('square').value = '';
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'block';
+            document.getElementById('service-name').textContent = 'Площадь, кв.м.';
+            document.getElementById('area-name').textContent = '';
+            document.getElementById('area-count').style.display = 'none';
+            ///var square = document.getElementById('square').value;
+            document.getElementById('area-type').style.display = 'none';
+            document.getElementById('coefficent-name').textContent = '';
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate1').addEventListener('click', calc1);
+            
+
+        break;
+        //2
+        case 'Техплан нежилого здания, помещения':
+        document.getElementById('calculate1').style.display = 'none';
+        document.getElementById('calculate2').style.display = 'block';
+        document.getElementById('calculate3').style.display = 'none';
+        document.getElementById('calculate4').style.display = 'none';
+        document.getElementById('calculate5').style.display = 'none';
+        document.getElementById('calculate6').style.display = 'none';
+        document.getElementById('calculate7').style.display = 'none';
+            document.getElementById('square').value = ''; 
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'block';
+            document.getElementById('service-name').textContent = 'Площадь, кв.м.';
+            document.getElementById('area-name').textContent = '';
+            document.getElementById('area-count').style.display = 'none';
+            //var square = document.getElementById('square').value;
+            document.getElementById('area-type').style.display = 'block';
+            document.getElementById('coefficent-name').textContent = 'Нужно ли выполнять обмеры?';
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate2').addEventListener('click', calc2);
+            
+        break;
+        
+            
+        break;
+        //3
+        case 'Техплан машиноместа, гаража': 
+        document.getElementById('calculate1').style.display = 'none';
+        document.getElementById('calculate2').style.display = 'none';
+        document.getElementById('calculate3').style.display = 'block';
+        document.getElementById('calculate4').style.display = 'none';
+        document.getElementById('calculate5').style.display = 'none';
+        document.getElementById('calculate6').style.display = 'none';
+        document.getElementById('calculate7').style.display = 'none';
+            document.getElementById('square').value = ''; 
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'none';
+            document.getElementById('area-name').textContent = '';
+            document.getElementById('service-name').textContent = '';
+            document.getElementById('area-count').style.display = 'none';
+            //var square = document.getElementById('square').value;
+            document.getElementById('area-type').style.display = 'none';
+            document.getElementById('coefficent-name').textContent = '';
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate3').addEventListener('click', calc3);
+            
+        break;
+        //4
+        case 'Техплан ИЖС, дачи, хозпостройки': 
+        document.getElementById('calculate1').style.display = 'none';
+        document.getElementById('calculate2').style.display = 'none';
+        document.getElementById('calculate3').style.display = 'none';
+        document.getElementById('calculate4').style.display = 'block';
+        document.getElementById('calculate5').style.display = 'none';
+        document.getElementById('calculate6').style.display = 'none';
+        document.getElementById('calculate7').style.display = 'none';
+            document.getElementById('square').value = ''; 
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'block';
+            document.getElementById('service-name').textContent = 'Площадь, кв.м.';
+            document.getElementById('area-name').textContent = '';
+            document.getElementById('area-count').style.display = 'none';
+            //var square = document.getElementById('square').value;
+            document.getElementById('coefficent-name').textContent = '';
+            document.getElementById('area-type').style.display = 'none';
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate4').addEventListener('click', calc4);
+            
+        break;
+        
+            
+        break;
+        //5
+        case 'Техплан линейного сооружения или описания на ЗОУИТ': 
+        document.getElementById('calculate1').style.display = 'none';
+        document.getElementById('calculate2').style.display = 'none';
+        document.getElementById('calculate3').style.display = 'none';
+        document.getElementById('calculate4').style.display = 'none';
+        document.getElementById('calculate5').style.display = 'block';
+        document.getElementById('calculate6').style.display = 'none';
+        document.getElementById('calculate7').style.display = 'none';
+            document.getElementById('square').value = ''; 
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'block';
+            document.getElementById('service-name').textContent = 'Протяженность, м.';
+            document.getElementById('area-name').textContent = '';
+            document.getElementById('area-count').style.display = 'none';
+            //var square = document.getElementById('square').value;
+            document.getElementById('coefficent-name').textContent = 'Нужно ли выполнять обмеры?';
+            document.getElementById('area-type').style.display = 'block';
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate5').addEventListener('click', calc5);
+            
+        break;
+        //6
+        case 'Техплан МКД': 
+        document.getElementById('calculate1').style.display = 'none';
+        document.getElementById('calculate2').style.display = 'none';
+        document.getElementById('calculate3').style.display = 'none';
+        document.getElementById('calculate4').style.display = 'none';
+        document.getElementById('calculate5').style.display = 'none';
+        document.getElementById('calculate6').style.display = 'block';
+        document.getElementById('calculate7').style.display = 'none';
+            document.getElementById('square').value = ''; 
+            document.getElementById('area-type').style.display = 'none';
+            document.getElementById('coefficent-name').textContent=''
+            document.getElementById('area-count').value = '';
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'block';
+            document.getElementById('service-name').textContent = 'Площадь, кв.м.';
+            //var square = document.getElementById('square').value;
+            document.getElementById('area-type').style.display = 'none';
+            document.getElementById('area-name').textContent = 'Кол-во помещений';
+            document.getElementById('area-count').style.display = 'block';
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate6').addEventListener('click', calc6);
+            
+        break;
+
+        //7
+        case 'Техплан склада':
+        document.getElementById('calculate1').style.display = 'none';
+        document.getElementById('calculate2').style.display = 'none';
+        document.getElementById('calculate3').style.display = 'none';
+        document.getElementById('calculate4').style.display = 'none';
+        document.getElementById('calculate5').style.display = 'none';
+        document.getElementById('calculate6').style.display = 'none';
+        document.getElementById('calculate7').style.display = 'block';
+            document.getElementById('square').value = ''; 
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'block';
+            document.getElementById('service-name').textContent = 'Площадь, кв.м.';
+            document.getElementById('area-name').textContent = '';
+            document.getElementById('area-count').style.display = 'none';
+            //var square = document.getElementById('square').value;
+            document.getElementById('area-type').style.display = 'block';
+            document.getElementById('coefficent-name').textContent = 'Нужно ли выполнять обмеры?';
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate7').addEventListener('click', calc7);
+            
+        break;
+        
+
+        default:
+        document.getElementById('square').value = ''; 
+        document.getElementById('area-count').value = ''; 
+        document.getElementById('total-price').textContent = '';
+        document.getElementById('area-type').style.display = 'none';
+        document.getElementById('coefficent-name').textContent='';
+        document.getElementById('square').style.display = 'none';
+        document.getElementById('area-count').style.display = 'none';
+        document.getElementById('warning').style.display = 'none';
+        document.getElementById('exactPrice').style.display = 'none';
+        break;
+    }
+}
+
+function calc1(){
+    var total = 0;
+    var price = 0;
+    //var coifficent_value = document.getElementById('area-type').value;
+    var square = document.getElementById('square').value;
+    square = Math.ceil(square);
+    if (square>=1 && square<=100){
+        price = 15000;
+    }
+    if (square>100){
+        price = 15000+(square-100)*30;
+    }
+    total = price.toString() + ' руб.' + ' *';
+    document.getElementById('total-price').textContent = total;
+    document.getElementById('warning').style.display = 'block';
+    document.getElementById('exactPrice').style.display = 'block';
+    total = 0;
+    price = 0;
+   
+    
+}
+
+function calc2(){
+    var total = 0;
+    var price = 0;
+    var coifficent_value = document.getElementById('area-type').value;
+    var square = document.getElementById('square').value;
+    square = Math.ceil(square);
+    if (square>=1 && square<=100){
+        price = 20000;
+    }
+    if (square>100){
+        price = 20000+(square-100)*30;
+    }
+    if (coifficent_value == 'Да'){
+        price = price*1.5;
+    }
+    if (coifficent_value == 'Нет'){
+        price = price;
+    }
+    total = price.toString() + ' руб.' + ' *';
+    document.getElementById('total-price').textContent = total;
+    document.getElementById('warning').style.display = 'block';
+    document.getElementById('exactPrice').style.display = 'block';
+
+}
+
+
+function calc3(){
+    var total = 0;
+    var price = 15000;
+    var coifficent_value = document.getElementById('area-type').value;
+    
+    total = price.toString() + ' руб.' + ' *';
+    document.getElementById('total-price').textContent = total;
+    document.getElementById('warning').style.display = 'block';
+    document.getElementById('exactPrice').style.display = 'block';
+}
+
+function calc4(){
+    var price = 0;
+    var square = document.getElementById('square').value;
+    square = Math.ceil(square);
+    //var area = document.getElementById('area-count').value;
+    if (square>=1 && square<=200){
+        price = 15000;
+    }
+    if (square>200){
+        price = 15000+(square-200)*30;
+    }
+    
+    
+    total = price.toString() + ' руб.' + ' *';
+    document.getElementById('total-price').textContent = total;
+    document.getElementById('warning').style.display = 'block';
+    total = 0;
+    document.getElementById('exactPrice').style.display = 'block';
+}
+
+
+
+function calc5(){
+    var total = 0;
+    var price = 0;
+    var coifficent_value = document.getElementById('area-type').value;
+    var square = document.getElementById('square').value;
+    square = Math.ceil(square);
+    if (square>=1 && square<=100){
+        price = 10000;
+    }
+    if (square>100 && square<=1000){
+        price = 10000+10*(square-100);
+    }
+    if (square>1000){
+        price = 19000+(square-1000)*5;
+    }
+
+    if (coifficent_value=='Да'){
+        price=price*3;
+    }
+    if (coifficent_value == 'Нет'){
+            price = price;
+    }
+    
+    
+    total = price.toString() + ' руб.' + ' *';
+    document.getElementById('total-price').textContent = total;
+    document.getElementById('warning').style.display = 'block';
+    total = 0;
+    document.getElementById('exactPrice').style.display = 'block';
+}
+
+function calc6(){
+    var total = 0;
+    var price;
+    price = 0;
+    var square = document.getElementById('square').value;
+    var area = document.getElementById('area-count').value;
+    square = Math.ceil(square);
+    price = square*30;
+    if (price<59000){
+        document.getElementById('total-price').textContent = 'Сумма должна быть не мене 59000р. \n Ваша сумма: '+price.toString();
+        document.getElementById('warning').style.display = 'none';
+    }
+    if (price>=59000){
+        price += 2500*area;
+        total = price.toString() + ' руб.' + ' *';
+        document.getElementById('total-price').textContent = total;
+        document.getElementById('warning').style.display = 'block';
+    }
+    total = 0;
+    document.getElementById('exactPrice').style.display = 'block';
+}
+
+//Техплан склада
+function calc7(){
+    var total = 0;
+    var price = 0;
+    var coifficent_value = document.getElementById('area-type').value;
+    var square = document.getElementById('square').value;
+    square = Math.ceil(square);
+    if (square>=1 && square<=100){
+        price = 20000;
+    }
+    if (square>100){
+        price = 20000+(square-100)*10;
+    }
+    if (coifficent_value == 'Да'){
+        price = price*1.5;
+    }
+    if (coifficent_value == 'Нет'){
+        price = price;
+    }
+    total = price.toString() + ' руб.' + ' *';
+    document.getElementById('total-price').textContent = total;
+    document.getElementById('warning').style.display = 'block';
+    document.getElementById('exactPrice').style.display = 'block';
+
+}
+
+</script>
+
+<style>
+    #square
+    {
+        display: none;
+        width: 200px;
+        border-radius: 5px 5px 5px 5px;
+        border-color: #000000;
+    }
+    #area-count
+    {
+        display: none;
+        width: 200px;
+        border-radius: 5px 5px 5px 5px;
+        border-color: #000000; 
+    }
+    #area-type{
+        display: none;
+        border-radius: 5px 5px 5px 5px;
+        border-color: #000000;
+        color: #000000;
+        width: 420px;
+    }
+    #coiffecent-name{
+        display: none;
+    }
+    #calculate1
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #00ac9b;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 0px auto;
+        background-image: linear-gradient(
+        to right,
+        #00ac9b 100%,
+        #00ac9b 100%,
+        #00ac9b 100%
+        );
+        background-size: 300% auto;
+    }
+    #calculate2
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #00ac9b;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 0px auto;
+        background-image: linear-gradient(
+        to right,
+        #00ac9b 100%,
+        #00ac9b 100%,
+        #00ac9b 100%
+        );
+        background-size: 300% auto;
+    }
+    #calculate3
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #00ac9b;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 0px auto;
+        background-image: linear-gradient(
+        to right,
+        #00ac9b 100%,
+        #00ac9b 100%,
+        #00ac9b 100%
+        );
+        background-size: 300% auto;
+    }
+    #calculate4
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #00ac9b;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 0px auto;
+        background-image: linear-gradient(
+        to right,
+        #00ac9b 100%,
+        #00ac9b 100%,
+        #00ac9b 100%
+        );
+        background-size: 300% auto;
+    }
+    #calculate5
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #00ac9b;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 0px auto;
+        background-image: linear-gradient(
+        to right,
+        #00ac9b 100%,
+        #00ac9b 100%,
+        #00ac9b 100%
+        );
+        background-size: 300% auto;
+    }
+    #calculate6
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #00ac9b;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 0px auto;
+        background-image: linear-gradient(
+        to right,
+        #00ac9b 100%,
+        #00ac9b 100%,
+        #00ac9b 100%
+        );
+        background-size: 300% auto;
+    }
+
+    #calculate7
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #00ac9b;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 0px auto;
+        background-image: linear-gradient(
+        to right,
+        #00ac9b 100%,
+        #00ac9b 100%,
+        #00ac9b 100%
+        );
+        background-size: 300% auto;
+    }
+
+    #mainSelect
+    {
+        font-size: 20px;
+        border-radius: 5px 5px 5px 5px;
+        border-color: #000000;
+        color: #000000;
+        width: 570px;
+    }
+    #calcBody{
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+    }
+    #p
+    {
+        font-size: 20px;
+    }
+    #warning{
+        display: none;
+    }
+</style>
+
+
+

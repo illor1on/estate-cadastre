@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор межевание</title>
+</head>
+<body>
+    <div id="calcBody">
+        <select id = "mainSelect">
+            <option>Выберите услугу</option>
+            <option>Межевой план</option>
+            <option>Межевой план при разделе/объединении</option>
+            <option>Схема границ на КПТ</option>
+        </select>
+        <p id="service-name"></p>
+        <input id="square">
+        <br/>
+        <p id="area-name"></p>            
+        <input id="area-count">
+        <br/>
+        <p id="coefficent-name"></p>
+        <select id="area-type">
+            <option value="Да">Да</option>
+            <option value="Нет">Нет</option>
+        </select>
+        <br/>
+        <button id="calculate1">РАССЧИТАТЬ</button>
+        <button id="calculate2">РАССЧИТАТЬ</button>
+        <button id="calculate3">РАССЧИТАТЬ</button>
+        <p id="total-price"></p>
+        <p id="warning">*После изучения документов цена может незначительно измениться</p>
+    
+    </div>
+</body>
+</html>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", docReady);
+function docReady()
+{
+    document.getElementById('mainSelect').addEventListener('change', showSelect);
+}
+            document.getElementById('calculate1').style.display = 'none';
+            document.getElementById('calculate2').style.display = 'none';
+            document.getElementById('calculate3').style.display = 'none';
+function showSelect(e)
+{
+    switch(e.target.value)
+    {
+        //1
+        case 'Межевой план': 
+            price1 = 0;
+            price2 = 0;
+            price3 = 0;
+
+            document.getElementById('calculate1').style.display = 'block';
+            document.getElementById('calculate2').style.display = 'none';
+            document.getElementById('calculate3').style.display = 'none';
+            document.getElementById('square').value = '';
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'block';
+            document.getElementById('service-name').textContent = 'Площадь, кв.м.';
+            document.getElementById('area-count').style.display = 'none';
+            document.getElementById('area-name').textContent = '';
+            document.getElementById('coefficent-name').textContent = 'Вид использования участка ИЖС?';
+            document.getElementById('area-type').style.display = 'block';
+            var square = document.getElementById('square').value;
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate1').addEventListener('click', calc1);
+            
+
+        break;
+        
+        //2
+        case 'Межевой план при разделе/объединении': 
+        price1 = 0;
+            price2 = 0;
+            price3 = 0;
+            
+
+            document.getElementById('calculate2').style.display = 'block';
+            document.getElementById('calculate1').style.display = 'none';
+            document.getElementById('calculate3').style.display = 'none';
+            document.getElementById('square').value = ''; 
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'block';
+            document.getElementById('service-name').textContent = 'Площадь, кв.м.';
+            document.getElementById('area-count').style.display = 'block';
+            document.getElementById('area-name').textContent = 'Количество участков';
+            var square = document.getElementById('square').value;
+            document.getElementById('coefficent-name').textContent = 'Вид использования участка ИЖС?';
+            document.getElementById('area-type').style.display = 'block';
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate2').addEventListener('click', calc2);
+            
+        break;
+        //3
+        
+        case 'Схема границ на КПТ': 
+        price1 = 0;
+            price2 = 0;
+            price3 = 0;
+            
+
+            document.getElementById('calculate2').style.display = 'none';
+            document.getElementById('calculate3').style.display = 'block';
+            document.getElementById('calculate1').style.display = 'none';
+            document.getElementById('square').value = ''; 
+            document.getElementById('warning').style.display = 'none';
+            document.getElementById('square').style.display = 'block';
+            document.getElementById('service-name').textContent = 'Площадь, кв.м.';
+            document.getElementById('area-count').style.display = 'none';
+            document.getElementById('area-name').textContent = '';
+            document.getElementById('coefficent-name').textContent = 'Вид использования участка ИЖС?';
+            document.getElementById('area-type').style.display = 'block';
+            var square = document.getElementById('square').value;
+            document.getElementById('total-price').textContent = '';
+            document.getElementById('exactPrice').style.display = 'none';
+            document.getElementById('calculate3').addEventListener('click', calc3);
+            
+        break;
+
+        default:
+        price1 = 0;
+            price2 = 0;
+            price3 = 0;
+        document.getElementById('square').value = ''; 
+        document.getElementById('warning').style.display = 'none';
+        document.getElementById('area-count').value = ''; 
+        document.getElementById('coefficent-name').textContent = '';
+        document.getElementById('square').style.display = 'none';
+        document.getElementById('area-count').style.display = 'none';
+        document.getElementById('area-type').style.display = 'none';
+        document.getElementById('total-price').textContent = '';
+
+
+        document.getElementById('calculate1').style.display = 'none';
+            document.getElementById('calculate2').style.display = 'none';
+            document.getElementById('calculate3').style.display = 'none';
+            document.getElementById('exactPrice').style.display = 'none';
+        break;
+    }
+}
+
+function calc1(){
+    document.getElementById('total-price').textContent = '';
+    var price1;
+    price1 = 0;
+            price2 = 0;
+            price3 = 0;
+            
+    
+    document.getElementById('total-price').textContent = '';
+    square = document.getElementById('square').value;
+    var coifficent_value = document.getElementById('area-type').value;
+    square = Math.ceil(square);
+    if (square>=1 && square<=1000){
+        price1 = 20000;
+    }
+    if (square>100 && square<=10000){
+        price1 = 20000+(square-1000)*5;
+    }
+    if (square>10000){
+        price1 = 65000+(square-10000)*3;
+    }
+
+    if (coifficent_value == 'Да'){
+        price1 = price1;
+    }
+    if (coifficent_value == 'Нет'){
+
+            price1 = price1*1.5;
+    }
+    var total1 = price1.toString() + ' руб.' + ' *';
+    console.log(price1, price2, price3);
+    price1 = 0;
+    document.getElementById('total-price').textContent = total1;
+    document.getElementById('warning').style.display = 'block';
+    document.getElementById('exactPrice').style.display = 'block';
+}
+
+
+
+function calc2(){
+    document.getElementById('total-price').textContent = '';
+    var price2;
+    
+    price1 = 0;
+            price2 = 0;
+            price3 = 0;
+            
+    
+    document.getElementById('total-price').textContent = '';
+    var square = document.getElementById('square').value;
+    var areaCount = document.getElementById('area-count').value;
+    var coifficent_value = document.getElementById('area-type').value;
+    square = Math.ceil(square);
+    if (square>=1 && square<=500){
+        price2 = 15000;
+    }
+    if (square>500 && square<=10000){
+        price2 = 15000+(square-500)*10;
+    }
+    if (square>10000){
+        price2 = 110000+(square-10000)*1;
+    }
+
+    if (coifficent_value == 'Да'){
+        price2 = price2;
+    }
+    if (coifficent_value == 'Нет'){
+            price2 = price2*1.5;
+        }
+
+    if (areaCount>1){
+        price2 = price2+5000*(areaCount-1);
+    }
+
+
+    
+    
+    
+
+    var total2 = price2.toString() + ' руб.' + ' *';
+    console.log(price1, price2, price3);
+    price2 = 0;
+    document.getElementById('total-price').textContent = total2;
+    document.getElementById('warning').style.display = 'block';
+    document.getElementById('exactPrice').style.display = 'block';
+}
+
+
+function calc3(){
+    price1 = 0;
+            price2 = 0;
+            price3 = 0;
+    document.getElementById('total-price').textContent = '';
+    var price3;
+    square = document.getElementById('square').value;
+    var coifficent_value = document.getElementById('area-type').value;
+    square = Math.ceil(square);
+    if (square>=1 && square<=1000){
+        price3 = 15000;
+    }
+    if (square>1000){
+        price3 = 15000+(square-1000)*2;
+    }
+    if (coifficent_value == 'Да'){
+        price3 = price3;
+    }
+    if (coifficent_value == 'Нет'){
+        price3 = price3*1.5;
+    }
+    var total3 = price3.toString() + ' руб.' + ' *';
+    document.getElementById('total-price').textContent = total3;
+    console.log(price1, price2, price3);
+    document.getElementById('warning').style.display = 'block';
+    document.getElementById('exactPrice').style.display = 'block';
+}
+
+</script>
+
+<style>
+
+    #square
+    {
+        display: none;
+        width: 200px;
+        border-radius: 5px 5px 5px 5px;
+        border-color: #000000;
+    }
+    #area-count
+    {
+        display: none;
+        width: 200px;
+        border-radius: 5px 5px 5px 5px;
+        border-color: #000000; 
+    }
+    #area-type{
+        display: none;
+        border-radius: 5px 5px 5px 5px;
+        border-color: #000000;
+        color: #000000;
+        width: 420px;
+    }
+    #coiffecent-name{
+        display: none;
+    }
+    #calculate1
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #00ac9b;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 20px auto;
+        background-image: linear-gradient(
+        to right,
+        #00ac9b 100%,
+        #00ac9b 100%,
+        #00ac9b 100%
+        );
+        background-size: 300% auto;
+    }
+    #calculate2
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #00ac9b;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 20px auto;
+        background-image: linear-gradient(
+        to right,
+        #00ac9b 100%,
+        #00ac9b 100%,
+        #00ac9b 100%
+        );
+        background-size: 300% auto;
+    }
+    #calculate3
+    {
+        font-size: 20px;
+        border-radius: 20px 20px 20px 20px;
+        background: #7ec42a;
+        color: #ffffff;
+        border: none;
+        position: relative;
+        left: 45%;
+        transform: translate(-50%, 0);
+        padding: 10px 85px;
+        margin: 20px auto;
+        background-image: linear-gradient(
+        to right,
+        #7ec42a 100%,
+        #7ec42a 100%,
+        #7ec42a 100%
+        );
+        background-size: 300% auto;
+    }
+
+    #mainSelect
+    {
+        font-size: 20px;
+        border-radius: 5px 5px 5px 5px;
+        border-color: #000000;
+        color: #000000;
+        width: 420px;
+    }
+    #calcBody{
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+    }
+
+    #warning{
+        display: none;
+    }
+    #input{
+        height: 20px;
+    }
+
+</style>
+
